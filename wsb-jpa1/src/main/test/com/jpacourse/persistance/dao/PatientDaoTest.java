@@ -3,10 +3,15 @@ package com.jpacourse.persistance.dao;
 import com.jpacourse.persistence.dao.Dao;
 import com.jpacourse.persistence.dao.PatientDao;
 import com.jpacourse.persistence.entity.AddressEntity;
+import com.jpacourse.persistence.entity.DrugEntity;
+import com.jpacourse.persistence.entity.PatientEntity;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,36 +29,44 @@ public class PatientDaoTest {
 
     }
 
-    @Transactional
-    @Test
-    public void testShouldFindAddressById() {
-        // when
-        AddressEntity addressEntity = (AddressEntity) addressDao.findOne(1L);
-        // then
-        assertThat(addressEntity).isNotNull();
-        assertThat(addressEntity.getPostalCode()).isEqualTo("62-030");
-    }
+    @Nested
+    @DataJpaTest
+    class PatientDrugRelationTest {
 
-    @Transactional
-    @Test
-    public void testShouldSaveAndRemoveAddress() {
-        // given
-        AddressEntity addressEntity = new AddressEntity();
-        addressEntity.setAddressLine1("line1");
-        addressEntity.setAddressLine2("line2");
-        addressEntity.setCity("City1");
-        addressEntity.setPostalCode("66-666");
+        @Autowired
+        private PatientDao patientDao;
 
-        // when
-        final AddressEntity saved = (AddressEntity) addressDao.save(addressEntity);
-        assertThat(saved.getId()).isNotNull();
-        final AddressEntity newSaved = (AddressEntity) addressDao.findOne(saved.getId());
-        assertThat(newSaved).isNotNull();
+        @Autowired
+        private DrugEntity drugDao;
 
-        addressDao.delete(saved.getId());
+        @Test
+        @Transactional
+        public void
+        testPatientAndDrugsRelation() {
+            PatientEntity patient = new PatientEntity();
+            patient.setName("Jan Kowalski");
+            patientDao.save(patient);
 
-        // then
-        final AddressEntity removed = (AddressEntity) addressDao.findOne(saved.getId());
-        assertThat(removed).isNull();
+            DrugEntity drug1 = new DrugEntity();
+            drug1.setName("Ibum");
+            drug1.setPatient(patient);
+            drugDao.save(drug1);
+
+            DrugEntity drug2 = new DrugEntity();
+            drug2.setName("Ibuprom");
+            drug2.setPatient(patient);
+            drugDao.save(drug2);
+
+            PatientEntity savedPatient = (PatientEntity) patientDao.findById(patient.getId()).orElse(null);
+            List<DrugEntity> drugs = drugDao.findByPatient(patient);
+
+            assertThat(savedPatient).isNotNull();
+            assertThat(savedPatient.getName()).isEqualTo("Jan Kowalski");
+
+            assertThat(drugs).isNotNull();
+            assertThat(drugs.size()).isEqualTo(2);
+            assertThat(drugs.get(0).getName()).isEqualTo("Ibum");
+            assertThat(drugs.get(1).getName()).isEqualTo("Ibuprom");
+        }
     }
 }

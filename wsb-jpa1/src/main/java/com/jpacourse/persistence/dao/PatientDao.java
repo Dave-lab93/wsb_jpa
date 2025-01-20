@@ -2,6 +2,7 @@ package com.jpacourse.persistence.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import com.jpacourse.persistence.entity.DrugEntity;
 import com.jpacourse.persistence.entity.PatientEntity;
@@ -20,6 +21,8 @@ public interface PatientDao extends Dao<PatientEntity, Long> {
     List<PatientEntity> findByDrug(String Drug);
 
     List<DrugEntity> findByNameAndPatient(String name, PatientEntity patient);
+
+    Optional<Object> findById(Long id);
 }
 
 

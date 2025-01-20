@@ -3,6 +3,7 @@ package com.jpacourse.persistence.entity;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -32,4 +33,12 @@ public class DrugEntity {
 
     public PatientEntity getPatient() { return patient; }
     public void setPatient(PatientEntity patient) { this.patient = patient; }
+
+    public void save(DrugEntity drug1) {
+    }
+
+    public List<DrugEntity> findByPatient(PatientEntity patient) {
+
+        return List.of();
+    }
 }
