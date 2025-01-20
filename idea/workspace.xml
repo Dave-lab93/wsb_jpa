@@ -35,7 +35,6 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
-        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -71,8 +70,6 @@
     "Maven.wsb-jpa1 [compile].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -83,12 +80,6 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\wsb_jpa1\wsb-jpa1\src\main\test\com\jpacourse\persistance\dao" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
-    <key name="CreateTestDialog.RecentsKey">
-      <recent name="com.jpacourse.persistence.dao" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.jpacourse.persistence.dao" />
