@@ -1,10 +1,13 @@
 package com.jpacourse.persistence.entity;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 
 
 @Entity
-@Table(name = "DRUG")
+@Table(name = "Drug")
+@Where(clause = "name IS NOT NULL")
 public class DrugEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
