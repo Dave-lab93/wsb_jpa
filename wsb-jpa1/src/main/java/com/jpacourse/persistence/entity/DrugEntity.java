@@ -1,14 +1,10 @@
 package com.jpacourse.persistence.entity;
 
-import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
-import java.util.List;
 
 
 @Entity
-@Table(name = "Drug")
-@Where(clause = "name IS NOT NULL")
+@Table(name = "DRUG")
 public class DrugEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,12 +29,4 @@ public class DrugEntity {
 
     public PatientEntity getPatient() { return patient; }
     public void setPatient(PatientEntity patient) { this.patient = patient; }
-
-    public void save(DrugEntity drug1) {
-    }
-
-    public List<DrugEntity> findByPatient(PatientEntity patient) {
-
-        return List.of();
-    }
 }

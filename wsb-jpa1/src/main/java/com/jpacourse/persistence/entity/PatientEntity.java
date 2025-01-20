@@ -66,11 +66,4 @@ public class PatientEntity {
 
 	public List<DrugEntity> getDrugs() { return drugs; }
 	public void setDrugs(List<DrugEntity> drugs) {this.drugs = drugs;}
-
-	public void setName(String johnDoe) {
-	}
-
-	public boolean getName() {
-        return false;
-    }
 }

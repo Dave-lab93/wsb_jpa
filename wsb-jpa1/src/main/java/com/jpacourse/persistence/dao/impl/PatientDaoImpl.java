@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public abstract class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements PatientDao {
+public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements PatientDao {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -47,11 +47,14 @@ public abstract class PatientDaoImpl extends AbstractDao<PatientEntity, Long> im
     }
 
     @Override
-    public List<PatientEntity> findByDrug(String Drug) {
+    public List<PatientEntity> findByLEKI(String LEKI) {
         TypedQuery<PatientEntity> query = entityManager.createQuery(
-                "SELECT p FROM PatientEntity p WHERE p.Drug = :Drug", PatientEntity.class);
-        query.setParameter("Drug", Drug);
+                "select p from PatientEntity p " +
+                        " join p.lekiEntity :LEKI", PatientEntity.class);
+        query.setParameter("LEKI", LEKI);
+
         return query.getResultList();
     }
+
 
 }
