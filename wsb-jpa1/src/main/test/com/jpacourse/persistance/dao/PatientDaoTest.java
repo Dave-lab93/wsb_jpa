@@ -5,32 +5,42 @@ import com.jpacourse.persistence.entity.PatientEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+
 @DataJpaTest
 public class PatientDaoTest {
 
     @Autowired
     private PatientDao patientDao;
-
+    @Repository
+    public interface PatientDao extends JpaRepository<PatientEntity, Long> {
+        List<PatientEntity> findByDrug(String drugName);
+    }
 
     @Test
     @Transactional
     public void testFindByDrugName() {
+
+        PatientEntity patient = new PatientEntity();
+        patient.setFirstName("Jan");
+        patient.setLastName("Kowalski");
+        patientDao.save(patient);
 
         String drugName = "Ibuprom";
         List<PatientEntity> patients = patientDao.findByDrug(drugName);
 
         assertThat(patients).isNotNull();
         assertThat(patients.size()).isEqualTo(1);
+        assertThat(patients.get(0).getFirstName()).isEqualTo("Jan");
+        assertThat(patients.get(0).getLastName()).isEqualTo("Kowalski");
+
 
     }
-
-    /**
-     * Test usuwania pacjenta i sprawdzenia kaskadowego usuwania wizyt.
-     */
 
 }

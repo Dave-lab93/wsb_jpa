@@ -34,8 +34,6 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
 
         patient.getVisits().add(visit);
         entityManager.merge(patient);
-
-
     }
 
     @Override
@@ -50,12 +48,10 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
     public List<PatientEntity> findByDrug(String drug) {
         TypedQuery<PatientEntity> query = entityManager.createQuery(
                 "SELECT p FROM PatientEntity p " +
-                        " join p.drugEntity :DRUG " +
-                               "WHERE p.drug = :drug", PatientEntity.class);
+                        " JOIN p.drugs d " +
+                        "WHERE d.name = :drug", PatientEntity.class);
         query.setParameter("drug", drug);
 
         return query.getResultList();
     }
-
-
 }
