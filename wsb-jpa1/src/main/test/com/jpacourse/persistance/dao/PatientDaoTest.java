@@ -1,6 +1,7 @@
 package com.jpacourse.persistance.dao;
 
 import com.jpacourse.persistence.dao.PatientDao;
+import com.jpacourse.persistence.entity.DrugEntity;
 import com.jpacourse.persistence.entity.PatientEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,10 @@ public class PatientDaoTest {
         PatientEntity patient = new PatientEntity();
         patient.setFirstName("Jan");
         patient.setLastName("Kowalski");
+
+        DrugEntity drug = new DrugEntity();
+        drug.setName("Ibuprom");
+        patient.getDrugs().add(drug);
         patientDao.save(patient);
 
         String drugName = "Ibuprom";

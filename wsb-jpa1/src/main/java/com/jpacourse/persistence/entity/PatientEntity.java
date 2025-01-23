@@ -66,4 +66,6 @@ public class PatientEntity {
 
 	public List<DrugEntity> getDrugs() { return drugs; }
 	public void setDrugs(List<DrugEntity> drugs) {this.drugs = drugs; }
-}
+
+	}
+
