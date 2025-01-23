@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -34,7 +35,10 @@ public class PatientDaoTest {
 
         DrugEntity drug = new DrugEntity();
         drug.setName("Ibuprom");
-        patient.getDrugs().add(drug);
+
+        List<DrugEntity> drugs = new ArrayList<>();
+        drugs.add(drug);
+        patient.setDrugs(drugs);
         patientDao.save(patient);
 
         String drugName = "Ibuprom";
